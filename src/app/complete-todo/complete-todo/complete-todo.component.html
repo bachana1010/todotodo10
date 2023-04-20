@@ -1,0 +1,20 @@
+<div class="container">
+    <div class="row">
+      <ng-container *ngFor="let todoItem of todoData">
+        <div class="col-md-4">
+          <div class="outer-box">
+            <div class="inner-box">
+              <h4>{{ todoItem.todo }}</h4>
+              <h6>{{ todoItem.status }}</h6>
+              <button class="delete-btn" title="Delete" (click)="delete(todoItem)">
+            <i class="fas fa-trash"></i> 
+          </button>
+          <input type="checkbox" (change)="markAsComplete(todoItem)" />
+
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  
