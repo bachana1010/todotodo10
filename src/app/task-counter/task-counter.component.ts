@@ -1,43 +1,37 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, DoCheck, OnChanges, OnInit } from '@angular/core';
-import { TaskService } from '../task.service';
-interface Todo {
-  id: number;
-  todo: string;
-  status: string;
-}
+  // import { HttpClient } from '@angular/common/http';
+  // import { Component, OnInit } from '@angular/core';
+  // import { TaskService } from '../task.service';
 
-interface ApiResponse {
-  data: Todo[];
-}
-@Component({
-  selector: 'app-task-counter',
-  templateUrl: './task-counter.component.html',
-  styleUrls: ['./task-counter.component.scss']
-})
-export class TaskCounterComponent implements OnInit {
+  // export interface TaskTodo {
+  //   id: number;
+  //   task: string;
+  //   status: boolean;
+  // }
 
-  completeTasks: number = 0;
-  incompleteTasks: number = 0;
+  // export interface TaskApiResponse {
+  //   data: TaskTodo[];
+  // }
 
-  constructor(private taskService: TaskService) {}
+  // @Component({
+  //   selector: 'app-task-counter',
+  //   templateUrl: './task-counter.component.html',
+  //   styleUrls: ['./task-counter.component.scss'],
+  // })
+  // export class TaskCounterComponent implements OnInit {
+  //   completeTasks: number = 0;
+  //   incompleteTasks: number = 0;
 
-  ngOnInit(): void {
-    this.taskService.getTasks().subscribe((tasks: Todo[]) => {
-      this.updateCounts(tasks);
-    });
+  //   constructor(private taskService: TaskService) {}
 
-    this.taskService.taskChanged.subscribe(() => {
-      this.taskService.getTasks().subscribe((tasks: Todo[]) => {
-        this.updateCounts(tasks);
-      });
-    });
-  }
+  //   ngOnInit(): void {
 
-  updateCounts(tasks: Todo[]) {
-    this.completeTasks = tasks.filter((task) => task.status === 'complete').length;
-    this.incompleteTasks = tasks.filter((task) =>
-    task.status === 'incomplete').length;
-  }
-}
+  //   }
+  //   loadData() {
+  //     this.taskService.getinCompleteTodo().subscribe((response: TaskApiResponse) => {
+  //       console.log('esaa axali responsi', response);
+  //       console.log(response.data);
+  //     });
+  //   }
 
+
+  // }

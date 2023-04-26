@@ -1,16 +1,29 @@
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms'; // Make sure to import FormsModule in the module where this component is declared
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { TaskService } from 'src/app/task.service';
 
+interface Todo {
+  id: number;
+  todo: string;
+  status: string;
+}
+
+interface AddTodo {
+  Task: string;
+  Status: boolean;
+}
 @Component({
   selector: 'app-add-todo',
   templateUrl: './add-todo.component.html',
   styleUrls: ['./add-todo.component.scss']
 })
+
 export class AddTodoComponent implements OnInit {
   myForm: FormGroup | any;
 
-  constructor(private fb: FormBuilder, private httpClient: HttpClient) { }
+  constructor(private fb: FormBuilder, private httpClient: HttpClient,
+              private taskService: TaskService) { }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -19,9 +32,13 @@ export class AddTodoComponent implements OnInit {
   }
 
   addTask(form: FormGroup): void {
-    console.log(form.value);
-    const sendData = form.value;
-  this.httpClient.post("http://127.0.0.1:8044/createtodo", sendData).subscribe((res) => {
+    const sendData: AddTodo = {
+      Task: form.value.taskinput,
+      Status: false, // Set initial Status to false
+    };
+
+  this.taskService.AddTask(sendData).subscribe((res) => {
+    console.log("pasuxi",res)
     console.log(sendData);
     this.myForm.reset();
 

@@ -1,58 +1,151 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { TaskTodo, TaskApiResponse } from './complete-todo/complete-todo/complete-todo.component';
 
-interface Todo {
-  id: number;
-  todo: string;
-  status: string;
+interface AddTodo {
+  Task: string;
+  Status: boolean;
 }
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  private taskSubject = new BehaviorSubject<Todo[]>([]);
+  private taskSubject = new BehaviorSubject<TaskTodo[]>([]);
   taskChanged = new Subject<void>();
 
-  constructor(private httpClient: HttpClient) {
-    this.loadData();
+  endpoint = 'http://localhost:5000';
+
+  constructor(private http: HttpClient) {}
+
+  AddTask(task: AddTodo): Observable<any> {
+    const token = localStorage.getItem('Authorization');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post(this.endpoint + '/api/Todos', task, { headers: headers });
   }
 
-  loadData() {
-    this.httpClient
-      .get<{ data: Todo[] }>('http://127.0.0.1:8044/readtodo', {})
-      .subscribe((response) => {
-        this.taskSubject.next(response.data);
-      });
+  getinCompleteTodo(): Observable<TaskApiResponse> {
+    return this.http.get<TaskApiResponse>(this.endpoint + "/api/Todos");
   }
 
-  getTasks() {
-    return this.taskSubject.asObservable();
+  deleteTodo(id: number): Observable<any> {
+    return this.http.delete<any>(`${this.endpoint}/api/Todos/${id}`);
   }
 
-  taskDeleted(task: Todo) {
-    const currentTasks = this.taskSubject.getValue();
-    const updatedTasks = currentTasks.filter((t) => t.id !== task.id);
-    this.taskSubject.next(updatedTasks);
-    this.taskChanged.next();
-  }
 
-  taskCompleted(task: Todo) {
-    const currentTasks = this.taskSubject.getValue();
-    const updatedTasks = currentTasks.map((t) =>
-      t.id === task.id ? { ...t, status: 'complete' } : t
-    );
-    this.taskSubject.next(updatedTasks);
-    this.taskChanged.next();
-  }
 
-  taskIncomplete(task: Todo) {
-    const currentTasks = this.taskSubject.getValue();
-    const updatedTasks = currentTasks.map((t) =>
-      t.id === task.id ? { ...t, status: 'incomplete' } : t
-    );
-    this.taskSubject.next(updatedTasks);
-    this.taskChanged.next();
+  getAuthenticatedUserTodos(headers: HttpHeaders): Observable<TaskApiResponse> {
+    return this.http.get<TaskApiResponse>(`${this.endpoint}/api/Todos/ByUser`, { headers: headers });
   }
+  
+
+
+
+
+
+
+  // taskDeleted(task: Todo) {
+  //   const currentTasks = this.taskSubject.getValue();
+  //   const updatedTasks = currentTasks.filter((t) => t.id !== task.id);
+  //   this.taskSubject.next(updatedTasks);
+  //   this.taskChanged.next();
+  // }
+
+  // taskCompleted(task: Todo) {
+  //   const currentTasks = this.taskSubject.getValue();
+  //   const updatedTasks = currentTasks.map((t) =>
+  //     t.id === task.id ? { ...t, status: 'complete' } : t
+  //   );
+  //   this.taskSubject.next(updatedTasks);
+  //   this.taskChanged.next();
+  // }
+
+  // taskIncomplete(task: Todo) {
+  //   const currentTasks = this.taskSubject.getValue();
+  //   const updatedTasks = currentTasks.map((t) =>
+  //     t.id === task.id ? { ...t, status: 'incomplete' } : t
+  //   );
+  //   this.taskSubject.next(updatedTasks);
+  //   this.taskChanged.next();
+  // }
 }
+
+
+
+
+
+
+// import { HttpClient } from '@angular/common/http';
+// import { Injectable } from '@angular/core';
+// import { BehaviorSubject, Observable, Subject } from 'rxjs';
+
+// interface Todo {
+//   id: number;
+//   task: string;
+//   status: boolean;
+// }
+
+// interface AddTodo {
+//   Task: string;
+//   Status: boolean;
+//   UserId: number;
+// }
+
+// interface ApiResponse {
+//   data: Todo[];
+// }
+
+// @Injectable({
+//   providedIn: 'root',
+// })
+// export class TaskService {
+//   private taskSubject = new BehaviorSubject<Todo[]>([]);
+//   taskChanged = new Subject<void>();
+
+//   endpoint = 'http://localhost:5000';
+
+//   constructor(private http: HttpClient) {}
+
+//   AddTask(task: AddTodo) {
+//     return this.http.post(this.endpoint + '/api/Todos', task);
+//   }
+
+//   getinCompleteTodo(): Observable<ApiResponse> {
+//     return this.http.get<ApiResponse>(this.endpoint + '/api/Todos');
+//   }
+
+//   deleteTodo(id: number): Observable<any> {
+//     return this.http.delete<any>(`${this.endpoint}/api/Todos/${id}`);
+//   }
+
+//   getTasks(): Observable<ApiResponse> {
+//     return this.http.get<ApiResponse>(this.endpoint + '/api/Todos');
+//   }
+
+//   taskDeleted(task: Todo) {
+//     const currentTasks = this.taskSubject.getValue();
+//     const updatedTasks = currentTasks.filter((t) => t.id !== task.id);
+//     this.taskSubject.next(updatedTasks);
+//     this.taskChanged.next();
+//   }
+
+//   taskCompleted(task: Todo) {
+//     const currentTasks = this.taskSubject.getValue();
+//     const updatedTasks = currentTasks.map((t) =>
+//       t.id === task.id ? { ...t, status: true } : t
+//     );
+//     this.taskSubject.next(updatedTasks);
+//     this.taskChanged.next();
+//   }
+
+//   taskIncomplete(task: Todo) {
+//     const currentTasks = this.taskSubject.getValue();
+//     const updatedTasks = currentTasks.map((t) =>
+//       t.id === task.id ? { ...t, status: false } : t
+//     );
+//     this.taskSubject.next(updatedTasks);
+//     this.taskChanged.next();
+//   }
+// }

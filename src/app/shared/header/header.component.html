@@ -8,36 +8,29 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
-                    
-                    <a class="nav-link"[routerLink]="['/addtodo']">AddTodo</a>
+                    <a class="nav-link" *ngIf="authservice.loggedIn()" [routerLink]="['/addtodo']">AddTodo</a>
                 </li>
 
-
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/incomplete']">incomplete</a>
+                    <a class="nav-link" [routerLink]="['/Todos']">Todos</a>
                 </li>
 
-
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/complete']">complete</a>
+                    <a class="nav-link" *ngIf="authservice.loggedIn()" [routerLink]="['/myTodo']">My Todo</a>
                 </li>
 
-            
-
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['login']">Login</a>
+                    <a class="nav-link" [routerLink]="['login']" *ngIf="!authservice.loggedIn()">Login</a>
                 </li>
                 
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['registration']">Registration</a>
+                    <a class="nav-link" [routerLink]="['registration']" *ngIf="!authservice.loggedIn()">Registration</a>
                 </li>
                 
-                
-
-           
-    
+                <li class="nav-item">
+                    <a class="nav-link" *ngIf="authservice.loggedIn()" (click)="authservice.logoutUser()">Logout</a>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
-

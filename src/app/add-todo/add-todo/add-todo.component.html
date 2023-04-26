@@ -1,15 +1,15 @@
 <div class="container">
-    <div id="newtask">
-      <form #serverContent [formGroup]="myForm" (ngSubmit)="onFormSubmit(myForm)">
-  
-        <label>
-          <input #serverContent formControlName="taskinput" placeholder="add task" class="form-control">
-        </label>
-  
-        <button id="push">Add</button>
-        </form>
-    </div>
-    <div id="tasks"></div>
-  </div>
+  <div id="newtask">
+    <form #serverContent [formGroup]="myForm" (ngSubmit)="onFormSubmit(myForm)">
 
-  <h1>Add Todo Component Loaded</h1>
+      <label>
+        <input #serverContent formControlName="taskinput" placeholder="add task" class="form-control">
+      </label>
+
+      <button id="push" [disabled]="myForm.get('taskinput').value === ''">Add</button>
+    </form>
+  </div>
+  <div id="tasks"></div>
+</div>
+
+<h1>Add Todo Component Loaded</h1>

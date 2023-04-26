@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -8,7 +9,7 @@ const routes: Routes = [
   },
 
 {
-  path: "incomplete",
+  path: "Todos",
   loadChildren: () => import('./complete-todo/complete-todo.module').then(item => item.CompleteTodoModule)
 },
 {
@@ -24,6 +25,14 @@ const routes: Routes = [
   path: "registration",
   loadChildren: () => import('./registration/registration.module').then(item => item.RegistrationModule)
 },
+
+{
+  path: "myTodo",
+  loadChildren: () => import('./my-todo/my-todo.module').then(item => item.MyTodoModule),
+  canActivate: [AuthGuard]
+
+},
+
 
 
 ];

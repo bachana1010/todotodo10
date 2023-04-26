@@ -8,7 +8,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { HttpClientModule } from '@angular/common/http';
-import { TaskCounterComponent } from './task-counter/task-counter.component';
+// import { TaskCounterComponent } from './task-counter/task-counter.component';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +19,7 @@ import { TaskCounterComponent } from './task-counter/task-counter.component';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    TaskCounterComponent,
+    // TaskCounterComponent,
 
   ],
   imports: [
@@ -29,7 +32,7 @@ import { TaskCounterComponent } from './task-counter/task-counter.component';
     
 
   ],
-  providers: [],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
