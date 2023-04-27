@@ -3,7 +3,7 @@
     <ng-container *ngFor="let todoItem of todoData1">
       <div class="col-md-4">
         <div class="outer-box">
-          <div class="inner-box" [ngClass]="{ 'completed': todoItem.status }">
+          <div class="inner-box" [appTaskStatusColor]="todoItem.status" [ngClass]="{ 'completed': todoItem.status }">
             <h4>{{ todoItem.task }}</h4>
             <h6 class="status-text">{{ todoItem.status ? 'Complete' : 'Incomplete' }}</h6>
             <p>Added by: {{ todoItem.user.username }}</p>

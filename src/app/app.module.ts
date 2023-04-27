@@ -11,6 +11,8 @@ import { HttpClientModule } from '@angular/common/http';
 // import { TaskCounterComponent } from './task-counter/task-counter.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
+import { TaskAddTimePipe } from './task-addtime.pipe';
+import { AppTaskStatusColorDirective } from './app-task-status-color.directive';
 
 
 @NgModule({
@@ -19,8 +21,7 @@ import { AuthService } from './auth.service';
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    // TaskCounterComponent,
-
+    
   ],
   imports: [
     BrowserModule,

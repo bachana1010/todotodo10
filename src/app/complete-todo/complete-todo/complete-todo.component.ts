@@ -62,7 +62,6 @@ export class CompleteTodoComponent implements OnInit {
   markAsComplete(item: any) {
     item.status = !item.status;
 
-    // Update the status in the database
     this.httpClient.put(`http://localhost:5000/api/Todos/${item.id}`, item).subscribe(response => {
       this.loadData();
       console.log(response);

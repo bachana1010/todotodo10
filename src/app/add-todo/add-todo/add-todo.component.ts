@@ -1,7 +1,8 @@
-import { FormBuilder, FormGroup, FormsModule } from '@angular/forms'; // Make sure to import FormsModule in the module where this component is declared
+import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, PipeTransform } from '@angular/core';
 import { TaskService } from 'src/app/task.service';
+import { TaskAddTimePipe } from 'src/app/task-addtime.pipe';
 
 interface Todo {
   id: number;
@@ -13,17 +14,25 @@ interface AddTodo {
   Task: string;
   Status: boolean;
 }
+
 @Component({
   selector: 'app-add-todo',
   templateUrl: './add-todo.component.html',
-  styleUrls: ['./add-todo.component.scss']
+  styleUrls: ['./add-todo.component.scss'],
+  providers: [TaskAddTimePipe] 
+
 })
 
 export class AddTodoComponent implements OnInit {
   myForm: FormGroup | any;
+  addedTime: string; 
 
   constructor(private fb: FormBuilder, private httpClient: HttpClient,
-              private taskService: TaskService) { }
+              private taskService: TaskService,
+              private taskAddTimePipe: TaskAddTimePipe
+              ) {
+                this.addedTime = ''; 
+               }
 
   ngOnInit(): void {
     this.myForm = this.fb.group({
@@ -32,22 +41,21 @@ export class AddTodoComponent implements OnInit {
   }
 
   addTask(form: FormGroup): void {
+    this.addedTime = this.taskAddTimePipe.transform();
+
     const sendData: AddTodo = {
       Task: form.value.taskinput,
-      Status: false, // Set initial Status to false
+      Status: false,
     };
 
-  this.taskService.AddTask(sendData).subscribe((res) => {
-    console.log("pasuxi",res)
-    console.log(sendData);
-    this.myForm.reset();
-
-
-  })}
+    this.taskService.AddTask(sendData).subscribe((res) => {
+      console.log("pasuxi", res)
+      console.log(sendData);
+      this.myForm.reset();
+    })
+  }
 
   onFormSubmit(form: FormGroup): void {
     this.addTask(form);
   }
-
-
 }

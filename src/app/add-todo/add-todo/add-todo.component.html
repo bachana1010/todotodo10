@@ -7,6 +7,8 @@
       </label>
 
       <button id="push" [disabled]="myForm.get('taskinput').value === ''">Add</button>
+      <p *ngIf="addedTime">last added at: {{ addedTime }}</p>
+
     </form>
   </div>
   <div id="tasks"></div>

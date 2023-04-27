@@ -12,10 +12,6 @@ const routes: Routes = [
   path: "Todos",
   loadChildren: () => import('./complete-todo/complete-todo.module').then(item => item.CompleteTodoModule)
 },
-{
-  path: "complete",
-  loadChildren: () => import('./incomplete-todo/incomplete-todo.module').then(item => item.IncompleteTodoModule)
-},
 
 {
   path: "login",

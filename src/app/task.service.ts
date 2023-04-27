@@ -53,6 +53,12 @@ export class TaskService {
     return this.http.get<TaskApiResult>(`${this.endpoint}/api/Todos/ByUser`, { headers: headers });
   }
   
+  markAsComplete(item: TaskTodo): Observable<any> {
+    item.status = !item.status;
+
+    return this.http.put(`${this.endpoint}/api/Todos/${item.id}`, item);
+  }
+  
 
 
 

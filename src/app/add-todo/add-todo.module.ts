@@ -5,10 +5,12 @@ import { AddTodoRoutingModule } from './add-todo-routing.module';
 import { AddTodoComponent } from './add-todo/add-todo.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TaskAddTimePipe } from '../task-addtime.pipe';
 
 @NgModule({
   declarations: [
-    AddTodoComponent
+    AddTodoComponent,
+    TaskAddTimePipe
   ],
   imports: [
     CommonModule,

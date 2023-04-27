@@ -44,14 +44,12 @@ export class LoginComponent implements OnInit {
         this.loginForm.reset()
         console.log(response);
         console.log(response);
-        // You may want to save the token in local storage or handle it in another way.
       },
       (error) => {
         alert("login failed: " + error.statusText + ". try again")
         this.loginForm.reset()
 
         console.log(error);
-        // Handle errors like displaying an error message to the user.
       }
     );
   }

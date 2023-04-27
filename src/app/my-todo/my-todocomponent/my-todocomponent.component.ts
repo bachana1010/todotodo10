@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TaskApiResult, TaskService } from 'src/app/task.service';
 import { TaskTodo } from 'src/app/complete-todo/complete-todo/complete-todo.component';
 
@@ -10,16 +10,15 @@ import { TaskTodo } from 'src/app/complete-todo/complete-todo/complete-todo.comp
 })
 export class MyTodocomponentComponent implements OnInit {
   // todoData1: any
-  todoData1: TaskTodo[] = []; // Initialize with an empty array
-  httpClient: any;
+  todoData1: TaskTodo[] = []; 
 
-  constructor(private taskService: TaskService) { }
+  constructor(private taskService: TaskService,
+              private httpClient: HttpClient) { }
 
   ngOnInit(): void {
     this.fetchTodos()
   }
 
-  // Create a function with the desired code
   fetchTodos(): void {
     console.log("chaitvirta")
     const token = localStorage.getItem('Authorization');
@@ -42,14 +41,11 @@ export class MyTodocomponentComponent implements OnInit {
   }
 
   markAsComplete(item: any): void {
-    item.status = !item.status;
-
-    this.httpClient.put(`http://localhost:5000/api/Todos/${item.id}`, item).subscribe((response: unknown) => {
-  this.fetchTodos();
-  console.log(response);
-});
+    this.taskService.markAsComplete(item).subscribe((response: unknown) => {
+      this.fetchTodos();
+      console.log(response);
+    });
     
-    // Implement the update functionality here
   }
 
 }
