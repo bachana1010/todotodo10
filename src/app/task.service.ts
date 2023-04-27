@@ -8,6 +8,19 @@ interface AddTodo {
   Status: boolean;
 }
 
+export interface TaskApiResult {
+  $id: string;
+  $values: TaskTodo[];
+}
+
+
+
+export interface CustomTaskApiResult {
+  $id: string;
+  $values: TaskApiResult[];
+}
+
+
 @Injectable({
   providedIn: 'root',
 })
@@ -36,8 +49,8 @@ export class TaskService {
 
 
 
-  getAuthenticatedUserTodos(headers: HttpHeaders): Observable<TaskApiResponse> {
-    return this.http.get<TaskApiResponse>(`${this.endpoint}/api/Todos/ByUser`, { headers: headers });
+  getAuthenticatedUserTodos(headers: HttpHeaders): Observable<TaskApiResult> {
+    return this.http.get<TaskApiResult>(`${this.endpoint}/api/Todos/ByUser`, { headers: headers });
   }
   
 

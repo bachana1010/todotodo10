@@ -12,14 +12,20 @@ export interface TaskTodo {
   id: number;
   task: string;
   status: boolean;
-  user: User;
+  userId: number;
+  user: {
+    id: number;
+    username: string;
+  };
 }
+
 
 
 export interface TaskApiResponse {
   $id: string;
   $values: TaskTodo[];
 }
+
 
 
 @Component({

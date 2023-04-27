@@ -1,38 +1,50 @@
 .outer-box {
-    // background-color: black;
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-  }
-  
-  .inner-box {
-    background-color: white;
-    height: 120px;
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    margin-top: 100px;
-  }
-  
+  /* background-color: black; */
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
 
-/* Add this to your existing CSS */
+.status-text {
+  font-size: 14px; /* Set your desired font size here */
+  font-weight: normal;
+}
+.inner-box {
+  background-color: white;
+  height: 150px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  margin-top: 100px;
+  z-index: 10;
 
-  
-  .buttons-container .update-btn {
-    background-color: #2196f3; /* Blue */
-  }
-  
-  .buttons-container .delete-btn {
-    background-color: #f44336; /* Red */
-  }
-  
-  .completed {
-    background-color: green;
-  }
-  .delete-btn {
-    margin-right: 10px; /* Add this line to create a 10px distance between the delete button and the checkbox */
-  }
-  
+}
+
+button.delete-btn {
+  cursor: pointer;
+  opacity: 1;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.buttons-container .update-btn {
+  background-color: #2196f3; /* Blue */
+}
+
+.buttons-container .delete-btn {
+  background-color: #f44336; /* Red */
+}
+
+.completed {
+  background-color: green;
+}
+
+.delete-btn {
+  margin-right: 10px; /* Add this line to create a 10px distance between the delete button and the checkbox */
+}

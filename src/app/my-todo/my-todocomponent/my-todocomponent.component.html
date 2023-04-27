@@ -1,21 +1,19 @@
-<!-- <div class="container">
-    <div class="row">
-      <ng-container *ngFor="let todoItem of todoData1">
-        <div class="col-md-4">
-          <div class="outer-box">
-  
-            <div class="inner-box" [ngClass]="{ 'completed': todoItem.status }">
-              <h4>{{ todoItem.task }}</h4>
-              <button class="delete-btn" title="Delete" (click)="delete(todoItem)">
-                <i class="fas fa-trash"></i>
-              </button>
-              <input type="checkbox" (change)="markAsComplete(todoItem)" [checked]="todoItem.status" />
-              
-  
-            </div>
+<div class="container">
+  <div class="row">
+    <ng-container *ngFor="let todoItem of todoData1">
+      <div class="col-md-4">
+        <div class="outer-box">
+          <div class="inner-box" [ngClass]="{ 'completed': todoItem.status }">
+            <h4>{{ todoItem.task }}</h4>
+            <h6 class="status-text">{{ todoItem.status ? 'Complete' : 'Incomplete' }}</h6>
+            <p>Added by: {{ todoItem.user.username }}</p>
+            <button class="delete-btn" title="Delete" (click)="delete(todoItem)">
+              <i class="fas fa-trash"></i>
+            </button>
+            <input type="checkbox" (change)="markAsComplete(todoItem)" [checked]="todoItem.status">
           </div>
         </div>
-      </ng-container>
-    </div>
+      </div>
+    </ng-container>
   </div>
-   -->
+</div>
